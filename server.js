@@ -1,15 +1,31 @@
-const express = require('express');
-const graphqlHTTP = require('express-graphql');
-const schema = require('./schema')
+const express = require("express");
+const graphqlHTTP = require("express-graphql");
+const cors = require("cors");
+const schema = require("./schema");
+const path = require("path");
 
 const app = express();
 
-app.use('/graphql', graphqlHTTP({
+// Allow cross-origin
+app.use(cors());
+
+app.use(
+  "/graphql",
+  graphqlHTTP({
     schema,
     graphiql: true
+  })
+);
 
-}));
+// for deployment on Heroku (create Static Folder 'public')
+// whenever graphQL Server is hit, redirect to index.html in public folder
 
-const PORT = process.env.PORT || 5000
+app.use(express.static("public"));
 
-app.listen(PORT, () => console.log(`server was launched on ${PORT}`))
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "public", "index.html"));
+});
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => console.log(`server was launched on ${PORT}`));
