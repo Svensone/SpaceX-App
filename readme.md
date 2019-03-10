@@ -1,6 +1,9 @@
 
 ----------- Heroku  -------------------
-                    command
+
+--- setup ---
+
+                    
 updat Git           $ git add . && commit -m "message"
                     $ git push
 start heroku        $heroku login
@@ -15,7 +18,7 @@ cors
 graphqlHTTP
 schema      axios / GraphQlList etc
 
-Fron
+
 
 
 ----------- Front End -------------------
